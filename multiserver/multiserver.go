@@ -37,13 +37,13 @@ func createServer(name string, port int) *http.Server {
 	mux.HandleFunc("/hello", hello)
 	mux.HandleFunc("/headers", headers)
 
-	// create new server
+	// create new multiserver
 	server := http.Server{
 		Addr:    fmt.Sprintf(":%v", port), // :{port}
 		Handler: mux,
 	}
 
-	// return new server (pointer)
+	// return new multiserver (pointer)
 	return &server
 }
 
@@ -55,14 +55,14 @@ func main() {
 	// add two goroutines to `wg` WaitGroup
 	wg.Add(2)
 
-	// goroutine to launch a server on port 9000
+	// goroutine to launch a multiserver on port 9000
 	go func() {
 		server := createServer("ONE", 8090)
 		fmt.Println(server.ListenAndServe())
 		wg.Done()
 	}()
 
-	// goroutine to launch a server on port 9001
+	// goroutine to launch a multiserver on port 9001
 	go func() {
 		server := createServer("TWO", 8091)
 		fmt.Println(server.ListenAndServe())

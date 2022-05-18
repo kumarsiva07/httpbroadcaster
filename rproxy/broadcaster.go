@@ -14,7 +14,7 @@ func main() {
 	h := &baseHandle{}
 	http.Handle("/", h)
 
-	// handle all requests to your server using the proxy
+	// handle all requests to your multiserver using the proxy
 	log.Fatal(http.ListenAndServe(":8888", h))
 
 }
